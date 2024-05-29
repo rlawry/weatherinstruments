@@ -83,7 +83,10 @@
 <body>
     <div id="timer">00:00.0</div>
     <audio id="soundN" src="nope.mp3"></audio>
-    <audio id="soundY" src="woo.mp3"></audio>
+    <audio id="soundN2" src="no.mp3"></audio>
+    <audio id="soundY" src="correct.mp3"></audio>
+    <audio id="try" src="try.mp3"></audio>
+    <audio id="wow" src="wow.mp3"></audio>
     <div id="correct-counter">Correct Answers: 0</div>
     <div id="question-container">
         <div id="question-image-container">
@@ -98,6 +101,8 @@
     <script>
         const soundY = document.getElementById('soundY');
         const soundN = document.getElementById('soundN');
+        const soundN2 = document.getElementById('soundN2');
+        const soundY2 = document.getElementById("wow");
         const options = ['Anemometer', 'Weather Vane', 'Rain Gauge', 'Barometer', 'Thermometer', 'Sling Psychrometer', 'Wind Sock'];
         const questions = [
             {
@@ -147,6 +152,7 @@
         let correctAnswers = 0;
         let startTime;
         let timerInterval;
+        let wrongCount = 0;
 
         // Shuffle the array of questions
         shuffleArray(questions);
@@ -209,9 +215,23 @@
             const optionElement = document.getElementById(optionId);
             if (isCorrect) {
                 soundY.play();
+                if(wrongCount<3){
+                    soundY.play(); 
+                }
+                else{
+                    soundY2.play();
+                }
+                wrongCount = 0;
                 optionElement.classList.add('flash-correct');
             } else {
-                soundN.play();
+                wrongCount++;
+                if(wrongCount<3){
+                    soundN.play();
+                }
+                else{
+                    soundN2.play();
+                }
+                
                 optionElement.classList.add('flash-incorrect');
             }
 
