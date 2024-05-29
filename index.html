@@ -103,6 +103,7 @@
         const soundN = document.getElementById('soundN');
         const soundN2 = document.getElementById('soundN2');
         const soundY2 = document.getElementById("wow");
+        const soundTry = document.getElementById("try");
         const options = ['Anemometer', 'Weather Vane', 'Rain Gauge', 'Barometer', 'Thermometer', 'Sling Psychrometer', 'Wind Sock'];
         const questions = [
             {
@@ -204,6 +205,17 @@
         }
 
         function checkAnswer(optionText, iD) {
+            soundN.pause();
+            soundN.currentTime = 0;
+            soundY.pause();
+            soundY.currentTime = 0;
+            soundN2.pause();
+            soundN2.currentTime = 0;
+            soundY2.pause();
+            soundY2.currentTime = 0;
+            soundTry.pause();
+            soundTry.currentTime = 0;
+
             console.log(iD + " iD");
             const correctOption = questions[currentQuestion].correct;
             const isCorrect = optionText === correctOption;
@@ -228,8 +240,11 @@
                 if(wrongCount<3){
                     soundN.play();
                 }
-                else{
+                else if(wrongCount<4&&wrongCount>=3){
                     soundN2.play();
+                }
+                else{
+                    soundTry.play();
                 }
                 
                 optionElement.classList.add('flash-incorrect');
